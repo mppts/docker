@@ -1,0 +1,1 @@
+eval $(docker-machine env Char | head -4 | sed 's/"//g') 
