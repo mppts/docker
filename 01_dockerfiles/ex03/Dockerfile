@@ -6,14 +6,14 @@ RUN apt-get update && \
 
 RUN wget https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh && chmod 777 script.deb.sh && ./script.deb.sh && apt-get install -y gitlab-ce
 
-RUN       sed -i "s|external_url 'http://gitlab.example.com'|external_url 'https://192.168.99.102'|" /etc/gitlab/gitlab.rb && \
+RUN       sed -i "s|external_url 'http://gitlab.example.com'|external_url 'https://192.168.99.114'|" /etc/gitlab/gitlab.rb && \
            openssl req -new -newkey rsa:4096 -days 365 -nodes -x509 \
-           -subj "/C=RU/ST=Denial/L=Moscow/O=Dis/CN=192.168.99.102" \
+           -subj "/C=RU/ST=Denial/L=Moscow/O=Dis/CN=192.168.99.114" \
 	       -keyout gitlab.example.com.key  -out gitlab.example.com.crt && \ 
            mkdir -p /etc/gitlab/ssl && chmod 700 /etc/gitlab/ssl && \
            cp gitlab.example.com.key gitlab.example.com.crt /etc/gitlab/ssl/ && \
            sed -i 's|# nginx['redirect_http_to_https_port'] = 80|nginx['redirect_http_to_https_port'] = 80|' /etc/gitlab/gitlab.rb  && \
-           echo "192.168.99.102 gitlab.example.com gitlab.example.com" >> /etc/hosts && \
+           echo "192.168.99.114 gitlab.example.com gitlab.example.com" >> /etc/hosts && \
            echo "nginx['ssl_certificate'] = \"/etc/gitlab/ssl/gitlab.example.com.crt\"" >> /etc/gitlab/gitlab.rb && \
            echo "nginx['ssl_certificate_key'] = \"/etc/gitlab/ssl/gitlab.example.com.key\"" >> /etc/gitlab/gitlab.rb && \
            echo "nginx['redirect_http_to_https'] = true" >> /etc/gitlab/gitlab.rb && \

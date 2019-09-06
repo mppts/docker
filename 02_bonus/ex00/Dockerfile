@@ -8,7 +8,7 @@ RUN pip install -r requirements.txt
 RUN  django-admin startproject app . && \
      python3 manage.py makemigrations && \
  	 python3 manage.py migrate && \
-	 sed -i 's/ALLOWED_HOSTS = \[\]/ALLOWED_HOSTS = \["192.168.99.100" ,\]/' ./app/settings.py && \
+	 sed -i 's/ALLOWED_HOSTS = \[\]/ALLOWED_HOSTS = \["192.168.99.114" ,\]/' ./app/settings.py && \
 	 echo "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@example.com', 'pass')" | python3 manage.py shell
 
 
